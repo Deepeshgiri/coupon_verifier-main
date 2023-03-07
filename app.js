@@ -56,9 +56,12 @@ app.post("/",(req,res)=>{
                     });
                     status="Sucess";
                     
-                }else{
+                }else if(coupon.active_status === "TRUE"){
                    // status=`Used at ${coupon.date} ${coupon.time}`;
                    status="used";
+                }
+                else{
+                    status="null"
                 }
 
             }
