@@ -1,20 +1,10 @@
 body {
-    background-image: url('bluedot.gif');
+    background-image: url('fly2.jpg');
     background-size: cover;
     animation: fire 10s ease-in-out infinite;
   }
   
-  @keyframes fire {
-    0% {
-      background-position: 0 0;
-    }
-    50% {
-      background-position: 100% 0;
-    }
-    100% {
-      background-position: 0 0;
-    }
-  }
+ 
   h1 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
