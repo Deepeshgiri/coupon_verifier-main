@@ -58,8 +58,6 @@ app.post("/",(req,res)=>{
                     
                 }else if(coupon.active_status === "TRUE"){
                     status="used";
-                }else{
-            
                 }
 
             }
