@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require('fs');
+//const filePath = path.join("/tmp", "coupon.json");
+//fs.writeFileSync(filePath, JSON.stringify(data));
 
 
 const app= express();
@@ -28,22 +30,36 @@ function addZero(i) {
   let s = addZero(date.getSeconds());
   let time = h + ":" + m + ":" + s;
 
-  let status=null;
+  
+  
+  
+
+
+  let status =null;
 
 app.get("/",(req,res)=>{
-    res.render("display",{status});
+    let active_count =0;
+    let noscoup = JSON.parse(fs.readFileSync("coupon.json"));
+        noscoup.forEach((cc)=>{
+            if(cc.active_status==="TRUE"){
+                active_count++;
+            }
+        })
+  
+    res.render("display",{status,active_count});
 });
 
 app.post("/",(req,res)=>{
 
     const ccode =Math.floor(req.body.search);
+    //console.log(ccode)
     
 
     try {
         let coupons = JSON.parse(fs.readFileSync("coupon.json"));
         coupons.forEach((coupon)=>{
             if(ccode<1207280 || ccode>1208378){
-                status="Invalid";
+                status={status:"Invalid",msg:"Invalid"};
             }
             if(ccode === coupon.Serial_nos){
                 if (coupon.active_status === "FALSE"){
@@ -54,15 +70,17 @@ app.post("/",(req,res)=>{
                     fs.writeFile("coupon.json",JSON.stringify(coupons,null,2),(err)=>{
                         if(err) console.log(err);
                     });
-                    status="Sucess";
+                    active_count++;
+                    status={status:"Sucess",msg:"You have successfully availed your offer!!"};
                     
                 }else if(coupon.active_status === "TRUE"){
-                   // status=`Used at ${coupon.date} ${coupon.time}`;
-                   status="used";
+                 let temp=`Used at ${coupon.date} ${coupon.time}`;
+                   status={status:"used",msg:temp};
+            
                 }
-                else{
-                    status="null"
-                }
+                // else{
+                //     status="null"
+                // }
 
             }
             res.redirect("/");
