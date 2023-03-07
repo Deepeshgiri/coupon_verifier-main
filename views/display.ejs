@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Search Page</title>
+    <link rel="stylesheet" href="css\style.css">
+  </head>
+  <body>
+    <div style="text-align:center;">
+      <h1>Search Pass Number</h1>
+      <form action="/" method="post">
+        <input type="text" name="search" placeholder="Code...">
+        <br>
+        <% if(status=="Invalid") { %>
+            <span style="color: red;">Invalid</span>
+        <%}else if(status=="Sucess") { %>
+            <span style="color: greenyellow;">Sucess</span>
+        <% }else if(status=="alredy_used") { %>
+            <span style="color: red;">Already used</span>
+        <% }else{ %>
+            <span></span>
+        <% } %>
+        <br>
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </body>
+</html>
