@@ -15,9 +15,9 @@
           
         <% }else if(status.status=="Invalid") { %>
             <span style="color: red;"><%= status.msg %></span>
-        <%}else if(status.status=="Sucess") { %>
+        <%}else if(status.status=="Success") { %>
             <span style="color: rgb(11, 235, 29);"><%= status.msg %>></span>
-        <% }else if(status.status=="used") { %>
+        <% }else if(status.status=="alredy_used") { %>
             <span style="color: red;"><%= status.msg %></span>
         <% }else{ %>
             <span></span>
@@ -29,6 +29,6 @@
     <br>
     <br>
     <br>
-    <div><h2>Total coupons availed <br><%= active_count %>/1099</h2></div>
+    <div><h2>Total coupons availed <br><%= count %>/1099</h2></div>
   </body>
 </html>
