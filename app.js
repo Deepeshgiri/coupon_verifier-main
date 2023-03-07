@@ -141,19 +141,21 @@ function addZero(i) {
 app.get("/",(req,res)=>{
     setTimeout(() => {
         console.log('waiting....');
-    
     res.render("display",{status,count});
+    
 }, 1000);
 });
 
 app.post("/",(req,res)=>{
 
     const ccode =Math.floor(req.body.search);
-
+    const inc = async (n)=>{
+        count = await count+1;
+    }
     const update = async (ccode)=>{
         const data = await Coupon.updateOne({serial_nos:ccode},{$set:{active_status:"TRUE",date:currentDate,time:currtime}});
-        count++;
         status={status: "Success", msg:"availed Successfully!!"};
+        inc(count)
         
         
     }
