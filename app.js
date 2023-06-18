@@ -112,6 +112,11 @@ const CouponScheema = mongoose.Schema({
     date : String,
     time : String
 });
+const counterSchema = mongoose.Schema({
+    webcount:String,
+    count: Number
+});
+const counterdb = mongoose.model("counters",counterSchema)
 
 const Coupon = mongoose.model("coupon",CouponScheema);
 
@@ -150,15 +155,24 @@ app.post("/",(req,res)=>{
 
     const ccode =Math.floor(req.body.search);
     const inc = async (n)=>{
-        count = await count+1;
+       // count = await count+1;
     }
+
+ 
+// const updat = async ()=>{
+//     const countdata = await counterdb.updateOne({webcount:"webcount"},{$set:{count:1}})
+//}
     const update = async (ccode)=>{
         const data = await Coupon.updateOne({serial_nos:ccode},{$set:{active_status:"TRUE",date:currentDate,time:currtime}});
         status={status: "Success", msg:"availed Successfully!!"};
-        inc(count)
+        //const countdata = await counterdb.updateOne({webcount:"webcount"},{$set:{count:1}})
+       const countinc= await counterdb.findOneAndUpdate({webcount: "webcount"},{$inc: {count:1}},{new: true});
+       // updat (countd)
+        //inc(count)
         
         
     }
+
 
     const check = async (ccode)=>{
         const coupon = await Coupon.findOne({serial_nos: ccode});
